@@ -31,14 +31,82 @@
 
   /* ---------- Theme ---------- */
 
+  function hexToRgb(hex) {
+    let h = hex.replace("#", "");
+    if (h.length === 3) h = h.split("").map((c) => c + c).join("");
+    const num = parseInt(h, 16);
+    return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+  }
+
+  function relativeLuminance({ r, g, b }) {
+    const [R, G, B] = [r, g, b].map((v) => {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+  }
+
+  function shade(hex, percent) {
+    const { r, g, b } = hexToRgb(hex);
+    const amt = Math.round(2.55 * percent);
+    const clamp = (v) => Math.min(255, Math.max(0, v));
+    return `rgb(${clamp(r + amt)}, ${clamp(g + amt)}, ${clamp(b + amt)})`;
+  }
+
+  const CUSTOM_PROPS = [
+    "--color-bg",
+    "--color-bg-elevated",
+    "--color-accent",
+    "--color-accent-soft",
+    "--color-text-primary",
+    "--color-text-secondary",
+    "--color-text-muted",
+    "--color-border",
+    "--color-border-strong",
+  ];
+
   function applyTheme(state) {
     document.documentElement.setAttribute("data-theme", state.theme);
+
     if (state.theme === "custom" && state.customColor) {
-      document.documentElement.style.setProperty("--color-accent", state.customColor);
-      document.documentElement.style.setProperty("--color-accent-soft", state.customColor);
+      const rgb = hexToRgb(state.customColor);
+      const isLight = relativeLuminance(rgb) > 0.5;
+
+      document.documentElement.style.setProperty("--color-bg", state.customColor);
+      document.documentElement.style.setProperty(
+        "--color-bg-elevated",
+        shade(state.customColor, isLight ? -8 : 12)
+      );
+      document.documentElement.style.setProperty(
+        "--color-accent",
+        isLight ? shade(state.customColor, -35) : shade(state.customColor, 25)
+      );
+      document.documentElement.style.setProperty(
+        "--color-accent-soft",
+        isLight ? shade(state.customColor, -20) : shade(state.customColor, 40)
+      );
+      document.documentElement.style.setProperty(
+        "--color-text-primary",
+        isLight ? "#2A2438" : "#F1E8D3"
+      );
+      document.documentElement.style.setProperty(
+        "--color-text-secondary",
+        isLight ? "rgba(42, 36, 56, 0.65)" : "rgba(241, 232, 211, 0.65)"
+      );
+      document.documentElement.style.setProperty(
+        "--color-text-muted",
+        isLight ? "rgba(42, 36, 56, 0.4)" : "rgba(241, 232, 211, 0.4)"
+      );
+      document.documentElement.style.setProperty(
+        "--color-border",
+        isLight ? "rgba(42, 36, 56, 0.1)" : "rgba(241, 232, 211, 0.12)"
+      );
+      document.documentElement.style.setProperty(
+        "--color-border-strong",
+        isLight ? "rgba(42, 36, 56, 0.2)" : "rgba(241, 232, 211, 0.24)"
+      );
     } else {
-      document.documentElement.style.removeProperty("--color-accent");
-      document.documentElement.style.removeProperty("--color-accent-soft");
+      CUSTOM_PROPS.forEach((prop) => document.documentElement.style.removeProperty(prop));
     }
 
     els.themeOptions.querySelectorAll("[data-theme-option]").forEach((btn) => {
