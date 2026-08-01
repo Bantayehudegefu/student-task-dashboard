@@ -1,56 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Task Dashboard</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grimoire — A spellbook for your day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
 </head>
 <body>
 
-<header>
-    <h1>Student Task Dashboard</h1>
-</header>
+<div class="app">
 
-<main class="container">
+  <header class="topbar">
+    <div class="brand">
+      <span class="icon brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"/><path d="M4 4v13a3 3 0 0 0 3 3"/></svg>
+      </span>
+      <div>
+        <h1 class="brand-title" data-i18n="brandTitle">Grimoire</h1>
+        <p class="brand-subtitle" data-i18n="brandSubtitle">A spellbook for your day</p>
+      </div>
+    </div>
 
-    <div class="task-box">
-        <input
+    <div class="topbar-controls">
+      <!-- Developer / contact button -->
+      <div class="popover-wrap">
+        <button id="about-button" class="btn btn-icon avatar-btn" data-i18n-aria-label="aboutDeveloper" aria-label="Developer contact" aria-haspopup="true">
+          <span class="avatar-initials" aria-hidden="true">BD</span>
+        </button>
+        <div id="about-popover" class="popover" role="dialog" aria-label="Developer contact">
+          <p class="popover-label" data-i18n="developer">Developer</p>
+          <p class="popover-name">Bantayehu Degefu</p>
+          <a class="popover-email" href="mailto:bantayehudegefu800@gmail.com">bantayehudegefu800@gmail.com</a>
+        </div>
+      </div>
+
+      <!-- Settings menu -->
+      <div class="popover-wrap">
+        <button id="settings-button" class="btn btn-icon" data-i18n-aria-label="settings" aria-label="Settings" aria-haspopup="true">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </span>
+        </button>
+
+        <div id="settings-panel" class="popover settings-panel" role="dialog" aria-label="Settings">
+
+          <section class="settings-section">
+            <h3 class="settings-heading" data-i18n="theme">Theme</h3>
+            <div class="swatch-row" id="theme-options">
+              <button class="swatch" data-theme-option="dark" aria-label="Dark">
+                <span class="swatch-dot swatch-dark"></span>
+                <span data-i18n="dark">Dark</span>
+              </button>
+              <button class="swatch" data-theme-option="light" aria-label="Light">
+                <span class="swatch-dot swatch-light"></span>
+                <span data-i18n="light">Light</span>
+              </button>
+              <button class="swatch" data-theme-option="custom" aria-label="Custom">
+                <span class="swatch-dot swatch-custom"></span>
+                <span data-i18n="custom">Custom</span>
+              </button>
+            </div>
+            <input type="color" id="custom-color-input" class="color-input" value="#8B5CF6" aria-label="Custom accent color" />
+          </section>
+
+          <section class="settings-section">
+            <h3 class="settings-heading" data-i18n="language">Language</h3>
+            <div id="lang-dropdown" class="lang-list" role="menu"></div>
+          </section>
+
+          <section class="settings-section">
+            <h3 class="settings-heading" data-i18n="backgroundSound">Background sound</h3>
+            <select id="sound-select" class="select sound-select">
+              <option value="none" data-i18n="soundNone">None</option>
+              <option value="rain" data-i18n="soundRain">Rain</option>
+              <option value="river" data-i18n="soundRiver">River</option>
+              <option value="forest" data-i18n="soundForest">Forest</option>
+              <option value="ocean" data-i18n="soundOcean">Ocean waves</option>
+            </select>
+            <div class="volume-row">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 8a5 5 0 0 1 0 8"/></svg>
+              </span>
+              <input type="range" id="sound-volume" class="volume-slider" min="0" max="100" value="40" aria-label="Volume" />
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="chapters" id="chapters" role="tablist" aria-label="Chapters"></div>
+
+  <main class="book">
+
+    <!-- LEFT PAGE: Today / composer + pending tasks -->
+    <section class="book-page" aria-labelledby="today-heading">
+      <div class="page-header">
+        <h2 class="page-heading" id="today-heading" data-i18n="today">Today</h2>
+        <span class="page-count"><span id="pending-count">0</span></span>
+      </div>
+
+      <form id="composer-form" class="composer">
+        <div class="composer-input-wrap">
+          <label for="composer-input" class="sr-only" data-i18n="addPlaceholder">Write a new spell...</label>
+          <input
+            id="composer-input"
+            class="field"
             type="text"
-            id="taskInput"
-            placeholder="Enter a new task">
+            data-i18n-placeholder="addPlaceholder"
+            placeholder="Write a new spell..."
+            autocomplete="off"
+            required
+          />
+        </div>
+        <select id="composer-tier" class="select" aria-label="Priority tier">
+          <option value="minor" data-i18n="tierMinor">Minor</option>
+          <option value="greater" data-i18n="tierGreater">Greater</option>
+          <option value="grand" data-i18n="tierGrand">Grand</option>
+        </select>
+        <input id="composer-due" class="select" type="date" aria-label="Due date" />
+        <button type="submit" class="btn btn-primary" data-i18n="addButton">Cast into book</button>
+      </form>
 
-        <button id="addBtn">Add Task</button>
-    </div>
+      <ul class="task-list" id="task-list" aria-live="polite"></ul>
 
-    <ul id="taskList">
+      <div class="ledger" id="ledger-section">
+        <h3 class="ledger-heading" data-i18n="achieved">Achieved</h3>
+        <ul class="task-list" id="done-list"></ul>
+      </div>
+    </section>
 
-    </ul>
+    <!-- RIGHT PAGE: overview / stats -->
+    <section class="book-page" aria-label="Overview">
+      <div class="page-header">
+        <h2 class="page-heading" data-i18n="overview">Overview</h2>
+      </div>
+      <p style="color:var(--color-text-secondary); line-height:1.6; margin-bottom:var(--space-5);">
+        Every task you write becomes a spell in your book. Cast it when it's done, and watch your streak grow.
+      </p>
+      <div id="statusbar" class="statusbar"></div>
+    </section>
 
-    <div class="statistics">
+  </main>
 
-        <p>Total Tasks:
-            <span id="total">0</span>
-        </p>
+</div>
 
-        <p>Completed:
-            <span id="completed">0</span>
-        </p>
-
-        <p>Remaining:
-            <span id="remaining">0</span>
-        </p>
-
-    </div>
-
-</main>
-
-<footer>
-    <p>Frontend Challenge</p>
-</footer>
-
-<script src="script.js"></script>
-
+<script src="js/i18n.js"></script>
+<script src="js/state.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/render.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

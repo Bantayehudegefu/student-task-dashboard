@@ -1,0 +1,179 @@
+/* ==========================================================================
+   GRIMOIRE — Layout
+   ========================================================================== */
+
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-8);
+  min-height: 100vh;
+}
+
+/* Top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-title {
+  font-size: var(--fs-xl);
+  letter-spacing: -0.01em;
+}
+
+.brand-subtitle {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.topbar-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* The book: two-page spread on desktop, single scroll on mobile */
+.book {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 30px 60px -20px var(--color-shadow);
+  overflow: hidden;
+}
+
+@media (min-width: 860px) {
+  .book {
+    grid-template-columns: 1fr 1fr;
+  }
+  .book::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: var(--book-spine-width);
+    background: linear-gradient(to bottom, transparent, var(--color-border-strong) 15%, var(--color-border-strong) 85%, transparent);
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+}
+
+.book-page {
+  padding: var(--space-6) var(--space-5);
+  min-width: 0;
+}
+
+.page-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  gap: var(--space-3);
+}
+
+.page-heading {
+  font-size: var(--fs-lg);
+}
+
+.page-count {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Composer row */
+.composer {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.composer-input-wrap {
+  flex: 1 1 220px;
+}
+
+/* Task list */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  padding: var(--space-7) var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.empty-state-icon {
+  opacity: 0.5;
+  margin-bottom: var(--space-2);
+}
+
+/* Achieved ledger (completed tasks) */
+.ledger {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px dashed var(--color-border-strong);
+}
+
+.ledger-heading {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-3);
+}
+
+/* Sidebar chapters (categories) */
+.chapters {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+/* Footer stats bar */
+.statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 520px) {
+  .app {
+    padding: var(--space-4) var(--space-3) var(--space-6);
+  }
+  .book-page {
+    padding: var(--space-5) var(--space-4);
+  }
+}

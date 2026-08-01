@@ -1,0 +1,115 @@
+/* ==========================================================================
+   GRIMOIRE — Design Tokens
+   ========================================================================== */
+
+:root {
+  /* Colors — dark "book cover" theme (default) */
+  --color-bg: #12162B;
+  --color-bg-elevated: #1A1F3A;
+  --color-parchment: #F1E8D3;
+  --color-parchment-dim: #E4D8BC;
+  --color-ink: #2A2438;
+  --color-accent: #8B5CF6;
+  --color-accent-soft: #A78BFA;
+  --color-gold: #E8B95C;
+  --color-gold-soft: #F2D18F;
+  --color-rose: #E8637A;
+  --color-border: rgba(241, 232, 211, 0.12);
+  --color-border-strong: rgba(241, 232, 211, 0.24);
+  --color-text-primary: #F1E8D3;
+  --color-text-secondary: rgba(241, 232, 211, 0.65);
+  --color-text-muted: rgba(241, 232, 211, 0.4);
+  --color-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Priority tiers */
+  --tier-minor: #6EE7B7;
+  --tier-greater: #E8B95C;
+  --tier-grand: #E8637A;
+
+  /* Typography */
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.5rem;
+  --fs-xl: 2rem;
+  --fs-2xl: 2.75rem;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+  --duration-cast: 900ms;
+
+  /* Layout */
+  --page-max-width: 1100px;
+  --book-spine-width: 2px;
+}
+
+/* Light "book cover" theme */
+[data-theme="light"] {
+  --color-bg: #EDE6D6;
+  --color-bg-elevated: #F7F2E7;
+  --color-parchment: #FFFDF8;
+  --color-parchment-dim: #F1E8D3;
+  --color-ink: #2A2438;
+  --color-border: rgba(42, 36, 56, 0.1);
+  --color-border-strong: rgba(42, 36, 56, 0.2);
+  --color-text-primary: #2A2438;
+  --color-text-secondary: rgba(42, 36, 56, 0.65);
+  --color-text-muted: rgba(42, 36, 56, 0.4);
+  --color-shadow: rgba(42, 36, 56, 0.15);
+}
+
+/* Custom theme — same structure as dark; --color-accent / --color-accent-soft
+   get overridden inline by JS from the user's chosen color. */
+[data-theme="custom"] {
+  --color-bg: #12162B;
+  --color-bg-elevated: #1A1F3A;
+  --color-parchment: #F1E8D3;
+  --color-parchment-dim: #E4D8BC;
+  --color-ink: #2A2438;
+  --color-border: rgba(241, 232, 211, 0.12);
+  --color-border-strong: rgba(241, 232, 211, 0.24);
+  --color-text-primary: #F1E8D3;
+  --color-text-secondary: rgba(241, 232, 211, 0.65);
+  --color-text-muted: rgba(241, 232, 211, 0.4);
+  --color-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-cast: 0ms;
+  }
+}
