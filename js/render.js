@@ -1,12 +1,12 @@
 /* ==========================================================================
-   GRIMOIRE — Render
+   TASKIFY — Render
    Pure-ish functions that turn state into DOM. No framework — just small
    template functions and targeted re-renders on state change.
    ========================================================================== */
 
-window.Grimoire = window.Grimoire || {};
+window.Taskify = window.Taskify || {};
 
-Grimoire.Render = (function () {
+Taskify.Render = (function () {
   const ICONS = {
     sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2z"/></svg>',
     briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
@@ -34,7 +34,13 @@ Grimoire.Render = (function () {
     if (!dateStr) return "";
     try {
       const d = new Date(dateStr + "T00:00:00");
-      return d.toLocaleDateString(lang, { month: "short", day: "numeric" });
+      const options = { month: "short", day: "numeric" };
+      // Only add the year when it isn't the current year, so dates stay
+      // short day-to-day but never look ambiguous for a future year.
+      if (d.getFullYear() !== new Date().getFullYear()) {
+        options.year = "numeric";
+      }
+      return d.toLocaleDateString(lang, options);
     } catch (e) {
       return dateStr;
     }
@@ -47,7 +53,7 @@ Grimoire.Render = (function () {
   }
 
   function renderChapters(state, container) {
-    const t = Grimoire.I18n.t;
+    const t = Taskify.I18n.t;
     const chapters = [{ id: "all", labelKey: "chapterAll" }, ...state.chapters];
     container.innerHTML = chapters
       .map((ch) => {
@@ -60,7 +66,7 @@ Grimoire.Render = (function () {
   }
 
   function taskTemplate(task, lang) {
-    const t = Grimoire.I18n.t;
+    const t = Taskify.I18n.t;
     const overdue = isOverdue(task.dueDate, task.done);
     return `
       <li class="task ${task.done ? "is-done" : ""}" data-id="${task.id}">
@@ -93,8 +99,8 @@ Grimoire.Render = (function () {
   }
 
   function renderTasks(state, pendingEl, doneEl, doneSection) {
-    const t = Grimoire.I18n.t;
-    const { pending, done } = Grimoire.State.getVisibleTasks();
+    const t = Taskify.I18n.t;
+    const { pending, done } = Taskify.State.getVisibleTasks();
     const lang = state.lang;
 
     if (pending.length === 0) {
@@ -121,8 +127,8 @@ Grimoire.Render = (function () {
   }
 
   function renderStats(state, container) {
-    const t = Grimoire.I18n.t;
-    const stats = Grimoire.State.getStats();
+    const t = Taskify.I18n.t;
+    const stats = Taskify.State.getStats();
     container.innerHTML = `
       <span class="statusbar-counts">
         ${stats.pending} ${escapeHtml(t("statsPending"))} · ${stats.done} ${escapeHtml(t("statsDone"))}
@@ -132,8 +138,8 @@ Grimoire.Render = (function () {
   }
 
   function renderLangMenu(container, currentLang, onSelect) {
-    const names = Grimoire.I18n.languageNames;
-    container.innerHTML = Grimoire.I18n.availableLanguages
+    const names = Taskify.I18n.languageNames;
+    container.innerHTML = Taskify.I18n.availableLanguages
       .map(
         (code) =>
           `<button class="lang-option" data-lang="${code}" aria-current="${code === currentLang}">${escapeHtml(

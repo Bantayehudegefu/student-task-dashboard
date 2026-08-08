@@ -5,8 +5,6 @@
 .app {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
   width: 100%;
   max-width: var(--page-max-width);
   margin: 0 auto;
@@ -60,8 +58,6 @@
   border: 1px solid var(--color-border);
   box-shadow: 0 30px 60px -20px var(--color-shadow);
   overflow: hidden;
-  flex: 1;
-  min-height: 0;
 }
 
 @media (min-width: 860px) {
@@ -84,7 +80,6 @@
 .book-page {
   padding: var(--space-6) var(--space-5);
   min-width: 0;
-  overflow-y: auto;
 }
 
 .page-header {
@@ -177,30 +172,7 @@
 }
 
 @media (max-width: 520px) {
-  html {
-    font-size: 17px;
-  }
   .book-page {
     padding: var(--space-5) var(--space-4);
-  }
-  .composer-form,
-  .composer {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .composer-input-wrap {
-    flex-basis: auto;
-  }
-  .field,
-  .select,
-  .btn-primary {
-    min-height: 48px;
-  }
-  .btn-icon {
-    width: 44px;
-    height: 44px;
-  }
-  .brand-title {
-    font-size: var(--fs-lg);
   }
 }

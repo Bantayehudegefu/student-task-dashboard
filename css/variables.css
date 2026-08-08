@@ -22,9 +22,9 @@
   --color-shadow: rgba(0, 0, 0, 0.4);
 
   /* Priority tiers */
-  --tier-minor: #6EE7B7;
-  --tier-greater: #E8B95C;
-  --tier-grand: #E8637A;
+  --tier-trivial: #6EE7B7;
+  --tier-medium: #E8B95C;
+  --tier-urgent: #E8637A;
 
   /* Typography */
   --font-display: 'Fraunces', 'Georgia', serif;

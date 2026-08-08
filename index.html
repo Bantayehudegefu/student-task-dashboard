@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grimoire — A spellbook for your day</title>
+<title>Taskify — Your daily tasks, organized</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/variables.css">
@@ -21,8 +21,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4z"/><path d="M4 4v13a3 3 0 0 0 3 3"/></svg>
       </span>
       <div>
-        <h1 class="brand-title" data-i18n="brandTitle">Grimoire</h1>
-        <p class="brand-subtitle" data-i18n="brandSubtitle">A spellbook for your day</p>
+        <h1 class="brand-title" data-i18n="brandTitle">Taskify</h1>
+        <p class="brand-subtitle" data-i18n="brandSubtitle">Your daily tasks, organized beautifully</p>
       </div>
     </div>
 
@@ -108,24 +108,24 @@
 
       <form id="composer-form" class="composer">
         <div class="composer-input-wrap">
-          <label for="composer-input" class="sr-only" data-i18n="addPlaceholder">Write a new spell...</label>
+          <label for="composer-input" class="sr-only" data-i18n="addPlaceholder">Write a new task...</label>
           <input
             id="composer-input"
             class="field"
             type="text"
             data-i18n-placeholder="addPlaceholder"
-            placeholder="Write a new spell..."
+            placeholder="Write a new task..."
             autocomplete="off"
             required
           />
         </div>
-        <select id="composer-tier" class="select" aria-label="Priority tier">
-          <option value="minor" data-i18n="tierMinor">Minor</option>
-          <option value="greater" data-i18n="tierGreater">Greater</option>
-          <option value="grand" data-i18n="tierGrand">Grand</option>
+        <select id="composer-tier" class="select" aria-label="Priority">
+          <option value="trivial" data-i18n="tierTrivial">Trivial</option>
+          <option value="medium" data-i18n="tierMedium">Medium</option>
+          <option value="urgent" data-i18n="tierUrgent">Urgent</option>
         </select>
         <input id="composer-due" class="select" type="date" aria-label="Due date" />
-        <button type="submit" class="btn btn-primary" data-i18n="addButton">Cast into book</button>
+        <button type="submit" class="btn btn-primary" data-i18n="addButton">Add Task</button>
       </form>
 
       <ul class="task-list" id="task-list" aria-live="polite"></ul>
@@ -141,8 +141,8 @@
       <div class="page-header">
         <h2 class="page-heading" data-i18n="overview">Overview</h2>
       </div>
-      <p style="color:var(--color-text-secondary); line-height:1.6; margin-bottom:var(--space-5);">
-        Every task you write becomes a spell in your book. Cast it when it's done, and watch your streak grow.
+      <p style="color:var(--color-text-secondary); line-height:1.6; margin-bottom:var(--space-5);" data-i18n="overviewBlurb">
+        Every task you add is tracked here. Complete it when you're done, and watch your streak grow.
       </p>
       <div id="statusbar" class="statusbar"></div>
     </section>

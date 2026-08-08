@@ -1,11 +1,11 @@
 /* ==========================================================================
-   GRIMOIRE — Main
+   TASKIFY — Main
    Boots the app: applies saved theme/language/sound, wires DOM events to
    state actions, and re-renders whenever state changes.
    ========================================================================== */
 
 (function () {
-  const { State, I18n, Render, Animations, Sound } = window.Grimoire;
+  const { State, I18n, Render, Animations, Sound } = window.Taskify;
 
   const els = {
     aboutButton: document.getElementById("about-button"),

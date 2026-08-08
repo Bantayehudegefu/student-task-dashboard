@@ -1,13 +1,13 @@
 /* ==========================================================================
-   GRIMOIRE — Animations
+   TASKIFY — Animations
    The "cast" effect: a short burst of particles + a settle-to-gold moment
    that plays when a task is completed. This is the one signature visual
    the whole app is built around — kept deliberately restrained elsewhere.
    ========================================================================== */
 
-window.Grimoire = window.Grimoire || {};
+window.Taskify = window.Taskify || {};
 
-Grimoire.Animations = (function () {
+Taskify.Animations = (function () {
   const PARTICLE_COUNT = 14;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

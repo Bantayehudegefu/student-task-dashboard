@@ -1,13 +1,13 @@
 /* ==========================================================================
-   GRIMOIRE — Sound
+   TASKIFY — Sound
    Generates ambient background sound (rain, river, forest, ocean waves)
    entirely with the Web Audio API — no audio files to download or bundle,
    so the app keeps working when opened straight from disk.
    ========================================================================== */
 
-window.Grimoire = window.Grimoire || {};
+window.Taskify = window.Taskify || {};
 
-Grimoire.Sound = (function () {
+Taskify.Sound = (function () {
   let ctx = null;
   let masterGain = null;
   let activeNodes = [];

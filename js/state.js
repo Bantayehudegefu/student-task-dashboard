@@ -1,14 +1,14 @@
 /* ==========================================================================
-   GRIMOIRE — State
+   TASKIFY — State
    Simple pub/sub store backed by localStorage. No build tools, no modules —
-   everything hangs off the global `Grimoire` namespace so files can be
+   everything hangs off the global `Taskify` namespace so files can be
    opened directly (file://) with zero server setup.
    ========================================================================== */
 
-window.Grimoire = window.Grimoire || {};
+window.Taskify = window.Taskify || {};
 
-Grimoire.State = (function () {
-  const STORAGE_KEY = "grimoire-todo-state-v1";
+Taskify.State = (function () {
+  const STORAGE_KEY = "taskify-todo-state-v1";
 
   const DEFAULT_CHAPTERS = [
     { id: "general", labelKey: "chapterGeneral", icon: "sparkles" },
@@ -25,7 +25,7 @@ Grimoire.State = (function () {
         return Object.assign(defaultState(), parsed);
       }
     } catch (e) {
-      console.warn("Grimoire: could not read saved state, starting fresh.", e);
+      console.warn("Taskify: could not read saved state, starting fresh.", e);
     }
     return defaultState();
   }
@@ -51,7 +51,7 @@ Grimoire.State = (function () {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {
-      console.warn("Grimoire: could not persist state.", e);
+      console.warn("Taskify: could not persist state.", e);
     }
   }
 
@@ -100,7 +100,7 @@ Grimoire.State = (function () {
         id: uid(),
         text: text.trim(),
         chapter: chapter || "general",
-        tier: tier || "minor",
+        tier: tier || "trivial",
         dueDate: dueDate || null,
         done: false,
         createdAt: Date.now(),
